@@ -7,6 +7,15 @@ endif()
 
 set(SOURCE_FILES hwmond.c cpu_usage.c)
 
+INCLUDE(CheckIncludeFiles)
+CHECK_INCLUDE_FILES(mach/mach_host.h HAVE_MACH_MACH_HOST_H)
+
+if(HAVE_MACH_MACH_HOST_H)
+    list(APPEND SOURCE_FILES cpu_usage_mach.c)
+else()
+    message(FATAL_ERROR "Don't know how to get CPU usage on this system")
+endif()
+
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/modules")
 
 find_package(LibUSB REQUIRED)
