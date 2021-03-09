@@ -5,8 +5,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(SOURCE_FILES
-        hwmond.c cpu_usage.c cpu_usage.h)
+set(SOURCE_FILES hwmond.c cpu_usage.c)
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/modules")
 
