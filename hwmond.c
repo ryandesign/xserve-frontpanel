@@ -20,7 +20,7 @@
 
 #define PANEL_VENDOR 0x5ac
 #define PANEL_USB_ID 0x8261
-#define PANEL_CONFIG 0
+#define PANEL_CONFIG 1
 #define NUM_LEDS_PER_ROW 8
 #define NUM_LED_ROWS 2
 #define PANEL_DATA_SIZE 32
@@ -72,7 +72,7 @@ int setupUSB(libusb_device_handle **frontpanel_device_handle_ptr,
         goto fail;
     }
 
-    libusb_get_config_descriptor(dev, PANEL_CONFIG, &config);
+    libusb_get_config_descriptor_by_value(dev, PANEL_CONFIG, &config);
 
     // We always choose the first interface
     if (config->bNumInterfaces < 1) {
