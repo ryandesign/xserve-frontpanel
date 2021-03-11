@@ -67,7 +67,7 @@ int setupUSB(libusb_device_handle **frontpanel_device_handle_ptr,
     libusb_device *dev = libusb_get_device(device_handle);
 
     if ( (error = libusb_set_configuration(device_handle, PANEL_CONFIG)) ) {
-        printf("Couldn't set configuration to %d: %s", PANEL_CONFIG, libusb_error_name(error));
+        printf("Couldn't set configuration to %d: %s\n", PANEL_CONFIG, libusb_error_name(error));
         error = 1;
         goto fail;
     }

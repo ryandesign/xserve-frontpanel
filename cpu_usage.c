@@ -30,7 +30,7 @@ int get_usage_by_core(float **usage_by_core_ptr, unsigned int *num_cores_ptr) {
     // If the # of cores has changed, we can't compare the number of ticks across runs
     if (num_cores != prev_num_cores) {
         ret = -2;
-        printf("# of cores has changed!");
+        printf("# of cores has changed!\n");
         goto always;
     }
 
@@ -75,7 +75,7 @@ int get_usage_by_core(float **usage_by_core_ptr, unsigned int *num_cores_ptr) {
 
 int get_aggregated_usage(volatile float *usage_breakdowns, unsigned int num_breakdowns) {
     if (num_breakdowns < 1) {
-        printf("ERROR: get_aggregated_usage was told to use 0 breakdowns");
+        printf("ERROR: get_aggregated_usage was told to use 0 breakdowns\n");
         return -1;
     }
 

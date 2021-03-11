@@ -13,12 +13,12 @@ int get_num_packages(void) {
     size_t sizeof_num_packages = sizeof(num_packages);
 
     if (sysctlbyname("hw.packages", &num_packages, &sizeof_num_packages, NULL, 0) != 0) {
-        printf("ERROR fetching hw.packages: %s", strerror(errno));
+        printf("ERROR fetching hw.packages: %s\n", strerror(errno));
         return -1;
     }
 
     if (num_packages <= 0) {
-        printf("WARNING: hw.packages gave invalid number %d, using 1", num_packages);
+        printf("WARNING: hw.packages gave invalid number %d, using 1\n", num_packages);
         num_packages = 1;
     }
 
