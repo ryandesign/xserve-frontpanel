@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 project(hwmond LANGUAGES C)
 
+option(ESXI "Build for VMware ESXi (on ELF-based OS only)")
 option(FAKE "Use fake (random) CPU usage data")
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -19,6 +20,19 @@ elseif(HAVE_MACH_MACH_HOST_H)
     list(APPEND SOURCE_FILES cpu_usage_mach.c)
 else()
     message(FATAL_ERROR "Don't know how to get CPU usage data on this system (you could use -DFAKE=ON)")
+endif()
+
+if(ESXI)
+    if(APPLE OR NOT UNIX)
+        message(FATAL_ERROR "Can only build for VMware ESXi on ELF-based UNIX operating systems like Linux")
+    endif()
+    string(APPEND CMAKE_C_FLAGS " -m32")
+    set(ESXI_LIBUSB_LIBRARY "libusb-1.0.so.0.1.0")
+    set(LIBUSB_LIBRARY ${CMAKE_SOURCE_DIR}/${ESXI_LIBUSB_LIBRARY})
+    if(NOT EXISTS ${LIBUSB_LIBRARY})
+        message(FATAL_ERROR "Copy ${ESXI_LIBUSB_LIBRARY} from the ESXi host's /lib directory into the source directory")
+    endif()
+    set(CMAKE_SKIP_BUILD_RPATH TRUE)
 endif()
 
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/modules")
