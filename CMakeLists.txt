@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 project(hwmond LANGUAGES C)
 
 option(FAKE "Use fake (random) CPU usage data")
@@ -26,6 +26,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/modules")
 find_package(LibUSB REQUIRED)
 
 add_executable(hwmond ${SOURCE_FILES})
+set_property(TARGET hwmond PROPERTY C_STANDARD 99)
 
 if (APPLE)
     find_library(CoreFoundation CoreFoundation)
