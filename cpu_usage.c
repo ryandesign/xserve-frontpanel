@@ -8,8 +8,6 @@
 #include <assert.h>
 #include <unistd.h>
 
-#define CPU_UPDATE_INTERVAL ((useconds_t)(1e6 / 5))
-
 static int num_packages;
 static unsigned int *prev_ticks_by_core_busy = NULL;
 static unsigned int *prev_ticks_by_core_total = NULL;
