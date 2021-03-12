@@ -1,0 +1,2 @@
+# Apple Intel Xserve front panel controller
+SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", ATTR{idProduct}=="8261", MODE="666"

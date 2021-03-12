@@ -19,3 +19,32 @@ cmake . && make
 ```bash
 ./hwmond
 ```
+
+### Running on Linux
+On modern Linux systems that use udev, the front panel might be attached read-only:
+
+```
+libusb: error [_get_usbfs_fd] libusb couldn't open USB device /dev/bus/usb/002/004: Permission denied
+libusb: error [_get_usbfs_fd] libusb requires write access to USB device nodes.
+Couldn't connect to front panel! (Are you running this on an Intel Xserve?)
+```
+
+To fix this, copy the provided rules file into rules.d directory:
+
+```bash
+sudo cp udev/98-apple-xserve-frontpanel.rules /lib/udev/rules.d/
+```
+
+Then reload the udev rules:
+
+```bash
+sudo udevadm control --reload-rules
+```
+
+And tell udev to trigger the rule for the front panel:
+
+```bash
+sudo udevadm trigger --attr-match=idVendor=05ac --attr-match=idProduct=8261
+```
+
+On subsequent system startups, the rule will be triggered automatically.
